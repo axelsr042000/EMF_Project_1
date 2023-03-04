@@ -10,6 +10,7 @@ Created on Tue Feb 28 13:04:08 2023
 
 # If you re-run programm, delete everything before, otherwise .appen function will do not change values into dictionnaries, but sum up them.
 
+#fabio bg
 import pandas as pd
 import numpy as np
 from scipy.stats import skew
