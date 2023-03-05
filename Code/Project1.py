@@ -27,6 +27,15 @@ from scipy.stats import chi2
 #data = data.iloc[:-3,] # Take out last 3 rows with NaN (1 is the saturday 31.12.2022, others are just not in the range we are looking at)  
 
 
+########################################################################################################################
+# load modules
+from Code.Project_parameters import path
+from Code.Project_functions import winsorize
+########################################################################################################################
+# open data
+path_to_file = path.get('Inputs') + '/DATA_Project_1.xlsx'
+data = pd.read_excel(path_to_file, header=1, sheet_name='sheet1', engine='openpyxl')
+########################################################################################################################
 # For EXCEL FILE
 data = pd.read_excel("DATA_Project_1.xlsx", header = 1, sheet_name='sheet1')
 
@@ -42,10 +51,10 @@ lw_returns = {'S&PCOMP(RI)': [], 'MLGTRSA(RI)': [], 'MLCORPM(RI)': [], 'WILURET(
 # SIMPLE RETURNS
 
 # Compute simple returns
-def simple_returns(r0,r1):
+def simple_returns(r0, r1):
     if r0 > 0:
         returns = ((r1-r0)/r0)*100
-    else :
+    else:
         returns = np.nan
         
     return returns
@@ -56,7 +65,7 @@ def stock_simple_dailyRtn(name):
     for i in range(0,len(data)-1): 
         x0 = data[name][i]
         x1 = data[name][i+1]
-        sd_returns[name].append(simple_returns(x0,x1)) # Becareful, if you don't clear and re-run, data will be added into the table, so size will change
+        sd_returns[name].append(simple_returns(x0, x1)) # Becareful, if you don't clear and re-run, data will be added into the table, so size will change
     return sd_returns[name]
 
 # Use the function to stock the differents class assets returns into sd_returns
@@ -408,12 +417,3 @@ if (JB_test['S&PCOMP(RI)'][0]> k_value):
     print('We reject the assumption of normality for S&PCOMP(RI)')
 else :
     print('We do not reject the assumption of normality for S&PCOMP(RI)')
-
-          
-    
-
-
-
-
-
-
