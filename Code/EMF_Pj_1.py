@@ -106,6 +106,20 @@ indices_week_ret_df.index = indices_week_ret_df.index.to_timestamp()
 indices_log_week_ret_df.index = indices_log_week_ret_df.index.to_timestamp()
 
 
+def setup_plot(name, frequency):
+    # format the x-axis ticks to show dates every 2 years
+    ax = plt.gca()
+    ax.xaxis.set_major_locator(mdates.YearLocator(base=4))
+    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
+    # add axis labels and a legend
+    plt.xlabel('Time')
+    plt.ylabel(frequency)
+    plt.legend()
+    plt.title(name)
+    # display the graph
+    plt.show()
+
+
 def plot_diff_returns(name, table1, table2, frequency, table_label):
     dif_return = table1-table2
 
@@ -124,53 +138,17 @@ def plot_diff_returns(name, table1, table2, frequency, table_label):
     plt.scatter([], [], marker='o', color='red', label='Lowest Values')
     plt.legend()
 
-    # format the x-axis ticks to show dates every 2 years
-    ax = plt.gca()
-    ax.xaxis.set_major_locator(mdates.YearLocator(base=4))
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
-
-    # add axis labels and a legend
-    plt.xlabel('Time')
-    plt.ylabel(frequency)
-    plt.legend()
-    plt.title(name)
-
-    # display the graph
-    plt.show()
+    setup_plot(name, frequency)
 
 
 # Use the function to see the difference for each class of assets
-# DAILY
-
 for x in daily_indices_df.columns:
+    # DAILY
     plot_diff_returns(x, indices_day_ret_df, indices_log_day_ret_df, '∆ Daily returns (%)',
                       'Simple Returns - Log Returns')
-
-plot_diff_returns('S&PCOMP(RI)', indices_day_ret_df, indices_log_day_ret_df, '∆ Daily returns (%)',
-                  'Simple Returns - Log Returns')
-plot_diff_returns('MLGTRSA(RI)', indices_day_ret_df, indices_log_day_ret_df, '∆ Daily returns (%)',
-                  'Simple Returns - Log Returns')
-plot_diff_returns('MLCORPM(RI)', indices_day_ret_df, indices_log_day_ret_df, '∆ Daily returns (%)',
-                  'Simple Returns - Log Returns')
-plot_diff_returns('WILURET(RI)', indices_day_ret_df, indices_log_day_ret_df, '∆ Daily returns (%)',
-                  'Simple Returns - Log Returns')
-plot_diff_returns('RJEFCRT(TR)', indices_day_ret_df, indices_log_day_ret_df, '∆ Daily returns (%)',
-                  'Simple Returns - Log Returns')
-plot_diff_returns('JPUSEEN', indices_day_ret_df, indices_log_day_ret_df, '∆ Daily returns (%)',
-                  'Simple Returns - Log Returns')
-# WEEKLY
-plot_diff_returns('S&PCOMP(RI)', indices_week_ret_df, indices_log_week_ret_df, '∆ Weekly returns (%)',
-                  'Simple Returns - Log Returns')
-plot_diff_returns('MLGTRSA(RI)', indices_week_ret_df, indices_log_week_ret_df, '∆ Weekly returns (%)',
-                  'Simple Returns - Log Returns')
-plot_diff_returns('MLCORPM(RI)', indices_week_ret_df, indices_log_week_ret_df, '∆ Weekly returns (%)',
-                  'Simple Returns - Log Returns')
-plot_diff_returns('WILURET(RI)', indices_week_ret_df, indices_log_week_ret_df, '∆ Weekly returns (%)',
-                  'Simple Returns - Log Returns')
-plot_diff_returns('RJEFCRT(TR)', indices_week_ret_df, indices_log_week_ret_df, '∆ Weekly returns (%)',
-                  'Simple Returns - Log Returns')
-plot_diff_returns('JPUSEEN', indices_week_ret_df, indices_log_week_ret_df, '∆ Weekly returns (%)',
-                  'Simple Returns - Log Returns')
+    # WEEKLY
+    plot_diff_returns(x, indices_week_ret_df, indices_log_week_ret_df, '∆ Weekly returns (%)',
+                      'Simple Returns - Log Returns')
 ########################################################################################################################
 
 ########################################################################################################################
@@ -204,21 +182,12 @@ def highlight_returns(table1, frequency, table1_label):
     plt.scatter([], [], marker='o', color='red', label='Lowest Values')
     plt.legend()
 
-    # format the x-axis ticks to show dates every 2 years
-    ax = plt.gca()
-    ax.xaxis.set_major_locator(mdates.YearLocator(base=4))
-    ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y'))
-
-    # add axis labels and a legend
-    plt.xlabel('Time')
-    plt.ylabel(frequency)
-    plt.legend()
-    plt.title('S&PCOMP(RI)')
-
-    # display the graph
-    plt.show()
+    setup_plot('S&PCOMP(RI)', frequency)
 
 
 # Use the function to plot graphs for log daily and logweekly returns
 highlight_returns(indices_log_day_ret_df, 'Daily returns (%)', 'Log Returns')
 highlight_returns(indices_log_week_ret_df, 'Weekly returns (%)', 'Log Returns')
+########################################################################################################################
+
+########################################################################################################################
