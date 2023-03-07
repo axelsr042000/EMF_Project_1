@@ -141,16 +141,12 @@ N_table = pd.DataFrame(['Mean', 'Variance', 'Skewness', 'Kurtosis', 'Min', 'Max'
 # Stock parameters into tables
 # Take out date column (don't know why it is here)
 sDR_parameters = pd.DataFrame(pd.concat([N_table, pd.DataFrame([µsDR, VarsDR, SksDR, KsDR, MinsDR, MaxsDR])], axis=1))
-sDR_parameters = sDR_parameters.drop(sDR_parameters.columns[-1], axis=1)
 # Take out date column (don't know why it is here)
 sWR_parameters = pd.DataFrame(pd.concat([N_table, pd.DataFrame([µsWR, VarsWR, SksWR, KsWR, MinsWR, MaxsWR])], axis=1))
-sWR_parameters = sWR_parameters.drop(sWR_parameters.columns[-1], axis=1)
 # Take out date column (don't know why it is here)
 lDR_parameters = pd.DataFrame(pd.concat([N_table, pd.DataFrame([µlDR, VarlDR, SklDR, KlDR, MinlDR, MaxlDR])], axis=1))
-lDR_parameters = lDR_parameters.drop(lDR_parameters.columns[-1], axis=1)
 # Take out date column (don't know why it is here)
 lWR_parameters = pd.DataFrame(pd.concat([N_table, pd.DataFrame([µlWR, VarlWR, SklWR, KlWR, MinlWR, MaxlWR])], axis=1))
-lWR_parameters = lWR_parameters.drop(lWR_parameters.columns[-1], axis=1)
 ########################################################################################################################
 
 ########################################################################################################################
@@ -309,13 +305,13 @@ for i in range(0, 5):
 # weekly
 for i in range(0, 5):
     print(pvalue(
-        ttest(smallest_SP500W.iloc[i, 0], lWR_parameters.iloc[0, 1], math.sqrt(lWR_parameters.iloc[1, 1]), 6000)[0],
-        5999))
+        ttest(smallest_SP500W.iloc[i, 0], lWR_parameters.iloc[0, 1], math.sqrt(lWR_parameters.iloc[1, 1]), 1200)[0],
+        1199))
 
 for i in range(0, 5):
     print(pvalue(
-        ttest(largest_SP500W.iloc[i, 0], lWR_parameters.iloc[0, 1], math.sqrt(lWR_parameters.iloc[1, 1]), 6000)[0],
-        5999))
+        ttest(largest_SP500W.iloc[i, 0], lWR_parameters.iloc[0, 1], math.sqrt(lWR_parameters.iloc[1, 1]), 1200)[0],
+        1199))
 
 # LDR_parameters MLG test of normality of the boom and crashes
 # daily
@@ -332,13 +328,13 @@ for i in range(0, 5):
 # weekly
 for i in range(0, 5):
     print(pvalue(
-        ttest(smallest_MLGW.iloc[i, 0], lWR_parameters.iloc[0, 2], math.sqrt(lWR_parameters.iloc[1, 2]), 6000)[0],
-        5999))
+        ttest(smallest_MLGW.iloc[i, 0], lWR_parameters.iloc[0, 2], math.sqrt(lWR_parameters.iloc[1, 2]), 1200)[0],
+        1199))
 
 for i in range(0, 5):
     print(
-        pvalue(ttest(largest_MLGW.iloc[i, 0], lWR_parameters.iloc[0, 2], math.sqrt(lWR_parameters.iloc[1, 2]), 6000)[0],
-               5999))
+        pvalue(ttest(largest_MLGW.iloc[i, 0], lWR_parameters.iloc[0, 2], math.sqrt(lWR_parameters.iloc[1, 2]), 1200)[0],
+               1199))
 
 # LDR_parameters MLC test of normality of the boom and crashes
 # daily
@@ -355,13 +351,13 @@ for i in range(0, 5):
 # weekly
 for i in range(0, 5):
     print(pvalue(
-        ttest(smallest_MLCW.iloc[i, 0], lWR_parameters.iloc[0, 3], math.sqrt(lWR_parameters.iloc[1, 3]), 6000)[0],
-        5999))
+        ttest(smallest_MLCW.iloc[i, 0], lWR_parameters.iloc[0, 3], math.sqrt(lWR_parameters.iloc[1, 3]), 1200)[0],
+        1199))
 
 for i in range(0, 5):
     print(
-        pvalue(ttest(largest_MLCW.iloc[i, 0], lWR_parameters.iloc[0, 3], math.sqrt(lWR_parameters.iloc[1, 3]), 6000)[0],
-               5999))
+        pvalue(ttest(largest_MLCW.iloc[i, 0], lWR_parameters.iloc[0, 3], math.sqrt(lWR_parameters.iloc[1, 3]), 1200)[0],
+               1199))
 
 # LDR_parameters WIL test of normality of the boom and crashes
 # daily
@@ -378,13 +374,13 @@ for i in range(0, 5):
 # weekly
 for i in range(0, 5):
     print(pvalue(
-        ttest(smallest_WILW.iloc[i, 0], lWR_parameters.iloc[0, 4], math.sqrt(lWR_parameters.iloc[1, 4]), 6000)[0],
-        5999))
+        ttest(smallest_WILW.iloc[i, 0], lWR_parameters.iloc[0, 4], math.sqrt(lWR_parameters.iloc[1, 4]), 1200)[0],
+        1199))
 
 for i in range(0, 5):
     print(
-        pvalue(ttest(largest_WILW.iloc[i, 0], lWR_parameters.iloc[0, 4], math.sqrt(lWR_parameters.iloc[1, 4]), 6000)[0],
-               5999))
+        pvalue(ttest(largest_WILW.iloc[i, 0], lWR_parameters.iloc[0, 4], math.sqrt(lWR_parameters.iloc[1, 4]), 1200)[0],
+               1199))
 
 # LDR_parameters RJE test of normality of the boom and crashes
 # daily
@@ -401,13 +397,13 @@ for i in range(0, 5):
 # weekly
 for i in range(0, 5):
     print(pvalue(
-        ttest(smallest_RJEW.iloc[i, 0], lWR_parameters.iloc[0, 5], math.sqrt(lWR_parameters.iloc[1, 5]), 6000)[0],
-        5999))
+        ttest(smallest_RJEW.iloc[i, 0], lWR_parameters.iloc[0, 5], math.sqrt(lWR_parameters.iloc[1, 5]), 1200)[0],
+        1199))
 
 for i in range(0, 5):
     print(
-        pvalue(ttest(largest_RJEW.iloc[i, 0], lWR_parameters.iloc[0, 5], math.sqrt(lWR_parameters.iloc[1, 5]), 6000)[0],
-               5999))
+        pvalue(ttest(largest_RJEW.iloc[i, 0], lWR_parameters.iloc[0, 5], math.sqrt(lWR_parameters.iloc[1, 5]), 1200)[0],
+               1199))
 
 # LDR_parameters JPU test of normality of the boom and crashes
 # daily
@@ -424,16 +420,13 @@ for i in range(0, 5):
 # weekly
 for i in range(0, 5):
     print(pvalue(
-        ttest(smallest_JPUW.iloc[i, 0], lWR_parameters.iloc[0, 6], math.sqrt(lWR_parameters.iloc[1, 6]), 6000)[0],
-        5999))
+        ttest(smallest_JPUW.iloc[i, 0], lWR_parameters.iloc[0, 6], math.sqrt(lWR_parameters.iloc[1, 6]), 1200)[0],
+        1199))
 
-"""
-REVOIR ICI PK BUG
-"""
 for i in range(0, 5):
     print(
-        pvalue(ttest(largest_JPUW.iloc[i, 0], lWR_parameters.iloc[0, 6], math.sqrt(lWR_parameters.iloc[1, 6]), 6000)[0],
-               5999))
+        pvalue(ttest(largest_JPUW.iloc[i, 0], lWR_parameters.iloc[0, 6], math.sqrt(lWR_parameters.iloc[1, 6]), 1200)[0],
+               1199))
 ########################################################################################################################
 
 
@@ -449,7 +442,7 @@ DW = pd.DataFrame(['Log Daily Returns', 'Log Weekly Returns'])
 
 # Get JB test value and put it into a table
 def JB_log(returns_table, parameters_table, asset_class, alpha, label):
-    JB_log = (len(returns_table) - 1) / 6 * (parameters_table[asset_class][2] ** 2 + (1 / 4) * (
+    JB_log = (len(returns_table)-1) / 6 * (parameters_table[asset_class][2] ** 2 + (1 / 4) * (
                 parameters_table[asset_class][3] - 3) ** 2)  # length -1 because 1st row is Nan
     k_value = chi2.ppf(1 - alpha, 2)
     JB_test[asset_class].append(
@@ -516,14 +509,10 @@ MaxsAWR = np.max(porfolio_week_returns)
 # Stock parameters into tables
 Portfolio_D_parameters = pd.DataFrame(
     pd.concat([N_table, pd.DataFrame([µsADR, VarsADR, SksADR, KsADR, MinsADR, MaxsADR])], axis=1))
-Portfolio_D_parameters = Portfolio_D_parameters.drop(Portfolio_D_parameters.columns[-1],
-                                                     axis=1)  # Take out date column (don't know why it is here)
 
 # Stock parameters into tables
 Portfolio_W_parameters = pd.DataFrame(
     pd.concat([N_table, pd.DataFrame([µsAWR, VarsAWR, SksAWR, KsAWR, MinsAWR, MaxsAWR])], axis=1))
-Portfolio_W_parameters = Portfolio_W_parameters.drop(Portfolio_W_parameters.columns[-1],
-                                                     axis=1)  # Take out date column (don't know why it is here)
 
 # Test
 # JB test (using wikipedia formula: JB = n/6 * (S^2 + (1/4) * (K-3)^2))
@@ -534,8 +523,8 @@ Portfolio_DW = pd.DataFrame(['Simple Daily Returns', 'Simple Weekly Returns'])
 
 # Get JB test value and put it into a table
 def Portfolio_JB(returns_table, parameters_table, alpha, label):
-    P_JB = (len(returns_table) - 1) / 6 * (parameters_table['Average'][2] ** 2 + (1 / 4) * (
-                parameters_table['Average'][3] - 3) ** 2)  # length -1 because 1st row is Nan
+    P_JB = (len(returns_table)-1) / 6 * (parameters_table.iloc[2, 1] ** 2 + (1 / 4) * (
+                parameters_table.iloc[3, 1] - 3) ** 2)  # length -1 because 1st row is Nan
     k_value = chi2.ppf(1 - alpha, 2)
     Portfolio_JB_test['Portfolio equally weighted'].append(
         P_JB)  # Becareful, if you don't clear and re-run, data will be added into the table, so size will change
