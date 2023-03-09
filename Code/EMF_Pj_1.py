@@ -13,13 +13,13 @@ import math
 """
 LOAD MODULES
 """
-from Code.Project_parameters import path
+#from Code.Project_parameters import path
 ########################################################################################################################
 """
 OPENDATA
 """
 # VOIR PK MESSAGE D'AVERTISSEMENT CONCERNANT L'EXTENSION DU FICHIER EXCEL - PEUT ETRE PAS IMP
-path_to_file = path.get('Inputs') + '/DATA_Project_1.xlsx'
+path_to_file = '/Users/fabioribeiro/Documents/Master/Emif/EMF_project_1/Inputs/DATA_Project_1.xlsx'
 data_source_df = pd.read_excel(path_to_file, header=1, sheet_name='sheet1', engine='openpyxl')
 # FORMAT VARIABLE DATE, VOIR SI NECESSAIRE
 data_source_df['Clean_DATE'] = pd.to_datetime(data_source_df['DATE'], format='%Y-%m-%d')
@@ -342,146 +342,149 @@ def pvalue(t_stat, df):
 
 # LDR_parameters SP500 test of normality of the boom and crashes
 # daily
-for i in range(0, 5):
-    print(pvalue(
-        ttest(smallest_SP500D.iloc[i, 0], lDR_parameters.iloc[0, 1], math.sqrt(lDR_parameters.iloc[1, 1]), 6000)[0],
-        5999))
+from scipy.stats import norm
 
-# TEST SI FORMULE OK
-# variable = (-12.760459618107234 - 0.02329432878111254) / (math.sqrt(1.5132061081450896) / math.sqrt(6000))
-# resultat = stats.t.sf(abs(variable), 5999) * 2
-# print("{:.10e}".format(resultat))
+for i in range (0,5):
+    print(pvalue(ttest(smallest_SP500D.iloc[i,0],lDR_parameters.iloc[0,1],math.sqrt(lDR_parameters.iloc[1,1]),6000)[0],5999))
+    print(norm.cdf(smallest_SP500D.iloc[i,0], lDR_parameters.iloc[0,1], math.sqrt(lDR_parameters.iloc[1,1])))
+    print(" ")
+  
+for i in range (0,5):
+    print(pvalue(ttest(largest_SP500D.iloc[i,0],lDR_parameters.iloc[0,1],math.sqrt(lDR_parameters.iloc[1,1]),6000)[0],5999))
+    vals=1-norm.cdf(largest_SP500D.iloc[i,0], lDR_parameters.iloc[0,1], math.sqrt(lDR_parameters.iloc[1,1]))
+    print(vals)
+    print(" ")
 
-for i in range(0, 5):
-    print(pvalue(
-        ttest(largest_SP500D.iloc[i, 0], lDR_parameters.iloc[0, 1], math.sqrt(lDR_parameters.iloc[1, 1]), 6000)[0],
-        5999))
+#weekly    
+for i in range (0,5):
+    print(pvalue(ttest(smallest_SP500W.iloc[i,0],lWR_parameters.iloc[0,1],math.sqrt(lWR_parameters.iloc[1,1]),1199)[0],1199))
+    print(norm.cdf(smallest_SP500W.iloc[i,0], lWR_parameters.iloc[0,1], math.sqrt(lWR_parameters.iloc[1,1])))
+    print(" ")
+  
+for i in range (0,5):
+    print(pvalue(ttest(largest_SP500W.iloc[i,0],lWR_parameters.iloc[0,1],math.sqrt(lWR_parameters.iloc[1,1]),1199)[0],1199))
+    print(1-norm.cdf(largest_SP500W.iloc[i,0], lWR_parameters.iloc[0,1], math.sqrt(lWR_parameters.iloc[1,1])))
+    print(" ")
+    
+    
 
-# weekly
-for i in range(0, 5):
-    print(pvalue(
-        ttest(smallest_SP500W.iloc[i, 0], lWR_parameters.iloc[0, 1], math.sqrt(lWR_parameters.iloc[1, 1]), 1200)[0],
-        1199))
+#LDR_parameters MLG test of normality of the boom and crashes
+#daily
+for i in range (0,5):
+    print(pvalue(ttest(smallest_MLGD.iloc[i,0],lDR_parameters.iloc[0,2],math.sqrt(lDR_parameters.iloc[1,2]),6000)[0],5999))
+    print(norm.cdf(smallest_MLGD.iloc[i,0],lDR_parameters.iloc[0,2],math.sqrt(lDR_parameters.iloc[1,2])))
+    print(" ")
+  
+for i in range (0,5):
+    print(pvalue(ttest(largest_MLGD.iloc[i,0],lDR_parameters.iloc[0,2],math.sqrt(lDR_parameters.iloc[1,2]),6000)[0],5999))
+    print(1-norm.cdf(largest_MLGD.iloc[i,0],lDR_parameters.iloc[0,2],math.sqrt(lDR_parameters.iloc[1,2])))
+    print(" ")
 
-for i in range(0, 5):
-    print(pvalue(
-        ttest(largest_SP500W.iloc[i, 0], lWR_parameters.iloc[0, 1], math.sqrt(lWR_parameters.iloc[1, 1]), 1200)[0],
-        1199))
+#weekly    
+for i in range (0,5):
+    print(pvalue(ttest(smallest_MLGW.iloc[i,0],lWR_parameters.iloc[0,2],math.sqrt(lWR_parameters.iloc[1,2]),1200)[0],1199))
+    print(norm.cdf(smallest_MLGW.iloc[i,0],lWR_parameters.iloc[0,2],math.sqrt(lWR_parameters.iloc[1,2])))
+    print(" ")
+  
+for i in range (0,5):
+    print(pvalue(ttest(largest_MLGW.iloc[i,0],lWR_parameters.iloc[0,2],math.sqrt(lWR_parameters.iloc[1,2]),6000)[0],1199))
+    print(1-norm.cdf(largest_MLGW.iloc[i,0],lWR_parameters.iloc[0,2],math.sqrt(lWR_parameters.iloc[1,2])))
+    print(" ")
 
-# LDR_parameters MLG test of normality of the boom and crashes
-# daily
-for i in range(0, 5):
-    print(pvalue(
-        ttest(smallest_MLGD.iloc[i, 0], lDR_parameters.iloc[0, 2], math.sqrt(lDR_parameters.iloc[1, 2]), 6000)[0],
-        5999))
+#LDR_parameters MLC test of normality of the boom and crashes
+#daily
+for i in range (0,5):
+    print(pvalue(ttest(smallest_MLCD.iloc[i,0],lDR_parameters.iloc[0,3],math.sqrt(lDR_parameters.iloc[1,3]),6000)[0],5999))
+    print(norm.cdf(smallest_MLCD.iloc[i,0],lDR_parameters.iloc[0,3],math.sqrt(lDR_parameters.iloc[1,3])))
+    print(" ")
+  
+for i in range (0,5):
+    print(pvalue(ttest(largest_MLCD.iloc[i,0],lDR_parameters.iloc[0,3],math.sqrt(lDR_parameters.iloc[1,3]),6000)[0],5999))
+    print(norm.cdf(1-largest_MLCD.iloc[i,0],lDR_parameters.iloc[0,3],math.sqrt(lDR_parameters.iloc[1,3])))
+    print(" ")
 
-for i in range(0, 5):
-    print(
-        pvalue(ttest(largest_MLGD.iloc[i, 0], lDR_parameters.iloc[0, 2], math.sqrt(lDR_parameters.iloc[1, 2]), 6000)[0],
-               5999))
+#weekly    
+for i in range (0,5):
+    print(pvalue(ttest(smallest_MLCW.iloc[i,0],lWR_parameters.iloc[0,3],math.sqrt(lWR_parameters.iloc[1,3]),1200)[0],1199))
+    print(norm.cdf(smallest_MLCW.iloc[i,0],lWR_parameters.iloc[0,3],math.sqrt(lWR_parameters.iloc[1,3])))
+    print(" ")
+  
+for i in range (0,5):
+    print(pvalue(ttest(largest_MLCW.iloc[i,0],lWR_parameters.iloc[0,3],math.sqrt(lWR_parameters.iloc[1,3]),1200)[0],1199))
+    print(1-norm.cdf(largest_MLCW.iloc[i,0],lWR_parameters.iloc[0,3],math.sqrt(lWR_parameters.iloc[1,3])))
+    print(" ")
 
-# weekly
-for i in range(0, 5):
-    print(pvalue(
-        ttest(smallest_MLGW.iloc[i, 0], lWR_parameters.iloc[0, 2], math.sqrt(lWR_parameters.iloc[1, 2]), 1200)[0],
-        1199))
+#LDR_parameters WIL test of normality of the boom and crashes
+#daily
+for i in range (0,5):
+    print(pvalue(ttest(smallest_WILD.iloc[i,0],lDR_parameters.iloc[0,4],math.sqrt(lDR_parameters.iloc[1,4]),6000)[0],5999))
+    print(norm.cdf(smallest_WILD.iloc[i,0],lDR_parameters.iloc[0,4],math.sqrt(lDR_parameters.iloc[1,4])))
+    print(" ")
+  
+for i in range (0,5):
+    print(pvalue(ttest(largest_WILD.iloc[i,0],lDR_parameters.iloc[0,4],math.sqrt(lDR_parameters.iloc[1,4]),6000)[0],5999))
+    print(1-norm.cdf(largest_WILD.iloc[i,0],lDR_parameters.iloc[0,4],math.sqrt(lDR_parameters.iloc[1,4])))
+    print(" ")
 
-for i in range(0, 5):
-    print(
-        pvalue(ttest(largest_MLGW.iloc[i, 0], lWR_parameters.iloc[0, 2], math.sqrt(lWR_parameters.iloc[1, 2]), 1200)[0],
-               1199))
+#weekly    
+for i in range (0,5):
+    print(pvalue(ttest(smallest_WILW.iloc[i,0],lWR_parameters.iloc[0,4],math.sqrt(lWR_parameters.iloc[1,4]),1200)[0],1199))
+    print(norm.cdf(smallest_WILW.iloc[i,0],lWR_parameters.iloc[0,4],math.sqrt(lWR_parameters.iloc[1,4])))
+    print(" ")
+  
+for i in range (0,5):
+    print(pvalue(ttest(largest_WILW.iloc[i,0],lWR_parameters.iloc[0,4],math.sqrt(lWR_parameters.iloc[1,4]),1200)[0],1199))
+    print(1-norm.cdf(largest_WILW.iloc[i,0],lWR_parameters.iloc[0,4],math.sqrt(lWR_parameters.iloc[1,4])))
+    print(" ")
 
-# LDR_parameters MLC test of normality of the boom and crashes
-# daily
-for i in range(0, 5):
-    print(pvalue(
-        ttest(smallest_MLCD.iloc[i, 0], lDR_parameters.iloc[0, 3], math.sqrt(lDR_parameters.iloc[1, 3]), 6000)[0],
-        5999))
 
-for i in range(0, 5):
-    print(
-        pvalue(ttest(largest_MLCD.iloc[i, 0], lDR_parameters.iloc[0, 3], math.sqrt(lDR_parameters.iloc[1, 3]), 6000)[0],
-               5999))
+#LDR_parameters RJE test of normality of the boom and crashes
+#daily
+for i in range (0,5):
+    print(pvalue(ttest(smallest_RJED.iloc[i,0],lDR_parameters.iloc[0,5],math.sqrt(lDR_parameters.iloc[1,5]),6000)[0],5999))
+    print(norm.cdf(smallest_RJED.iloc[i,0],lDR_parameters.iloc[0,5],math.sqrt(lDR_parameters.iloc[1,5])))
+    print(" ")
+  
+for i in range (0,5):
+    print(pvalue(ttest(largest_RJED.iloc[i,0],lDR_parameters.iloc[0,5],math.sqrt(lDR_parameters.iloc[1,5]),6000)[0],5999))
+    print(1-norm.cdf(largest_RJED.iloc[i,0],lDR_parameters.iloc[0,5],math.sqrt(lDR_parameters.iloc[1,5])))
+    print(" ")
 
-# weekly
-for i in range(0, 5):
-    print(pvalue(
-        ttest(smallest_MLCW.iloc[i, 0], lWR_parameters.iloc[0, 3], math.sqrt(lWR_parameters.iloc[1, 3]), 1200)[0],
-        1199))
+#weekly    
+for i in range (0,5):
+    print(pvalue(ttest(smallest_RJEW.iloc[i,0],lWR_parameters.iloc[0,5],math.sqrt(lWR_parameters.iloc[1,5]),1200)[0],1199))
+    print(norm.cdf(smallest_RJEW.iloc[i,0],lWR_parameters.iloc[0,5],math.sqrt(lWR_parameters.iloc[1,5])))
+    print(" ")
+  
+for i in range (0,5):
+    print(pvalue(ttest(largest_RJEW.iloc[i,0],lWR_parameters.iloc[0,5],math.sqrt(lWR_parameters.iloc[1,5]),1200)[0],1199))
+    print(1-norm.cdf(largest_RJEW.iloc[i,0],lWR_parameters.iloc[0,5],math.sqrt(lWR_parameters.iloc[1,5])))
+    print(" ")
 
-for i in range(0, 5):
-    print(
-        pvalue(ttest(largest_MLCW.iloc[i, 0], lWR_parameters.iloc[0, 3], math.sqrt(lWR_parameters.iloc[1, 3]), 1200)[0],
-               1199))
+#LDR_parameters JPU test of normality of the boom and crashes
+#daily
+for i in range (0,5):
+    print(pvalue(ttest(smallest_JPUD.iloc[i,0],lDR_parameters.iloc[0,6],math.sqrt(lDR_parameters.iloc[1,6]),6000)[0],5999))
+    print(norm.cdf(smallest_JPUD.iloc[i,0],lDR_parameters.iloc[0,6],math.sqrt(lDR_parameters.iloc[1,6])))
+    print(" ")
+  
+for i in range (0,5):
+    print(pvalue(ttest(largest_JPUD.iloc[i,0],lDR_parameters.iloc[0,6],math.sqrt(lDR_parameters.iloc[1,6]),6000)[0],5999))
+    print(1-norm.cdf(largest_JPUD.iloc[i,0],lDR_parameters.iloc[0,6],math.sqrt(lDR_parameters.iloc[1,6])))
+    print(" ")
 
-# LDR_parameters WIL test of normality of the boom and crashes
-# daily
-for i in range(0, 5):
-    print(pvalue(
-        ttest(smallest_WILD.iloc[i, 0], lDR_parameters.iloc[0, 4], math.sqrt(lDR_parameters.iloc[1, 4]), 6000)[0],
-        5999))
+#weekly    
+for i in range (0,5):
+    print(pvalue(ttest(smallest_JPUW.iloc[i,0],lWR_parameters.iloc[0,6],math.sqrt(lWR_parameters.iloc[1,6]),1200)[0],1199))
+    print(norm.cdf(smallest_JPUW.iloc[i,0],lWR_parameters.iloc[0,6],math.sqrt(lWR_parameters.iloc[1,6])))
+    print(" ")
+  
+for i in range (0,5):
+    print(pvalue(ttest(largest_JPUW.iloc[i,0],lWR_parameters.iloc[0,6],math.sqrt(lWR_parameters.iloc[1,6]),1200)[0],1199))
+    print(norm.cdf(largest_JPUW.iloc[i,0],lWR_parameters.iloc[0,6],math.sqrt(lWR_parameters.iloc[1,6])))
+    print(" ")
 
-for i in range(0, 5):
-    print(
-        pvalue(ttest(largest_WILD.iloc[i, 0], lDR_parameters.iloc[0, 4], math.sqrt(lDR_parameters.iloc[1, 4]), 6000)[0],
-               5999))
 
-# weekly
-for i in range(0, 5):
-    print(pvalue(
-        ttest(smallest_WILW.iloc[i, 0], lWR_parameters.iloc[0, 4], math.sqrt(lWR_parameters.iloc[1, 4]), 1200)[0],
-        1199))
-
-for i in range(0, 5):
-    print(
-        pvalue(ttest(largest_WILW.iloc[i, 0], lWR_parameters.iloc[0, 4], math.sqrt(lWR_parameters.iloc[1, 4]), 1200)[0],
-               1199))
-
-# LDR_parameters RJE test of normality of the boom and crashes
-# daily
-for i in range(0, 5):
-    print(pvalue(
-        ttest(smallest_RJED.iloc[i, 0], lDR_parameters.iloc[0, 5], math.sqrt(lDR_parameters.iloc[1, 5]), 6000)[0],
-        5999))
-
-for i in range(0, 5):
-    print(
-        pvalue(ttest(largest_RJED.iloc[i, 0], lDR_parameters.iloc[0, 5], math.sqrt(lDR_parameters.iloc[1, 5]), 6000)[0],
-               5999))
-
-# weekly
-for i in range(0, 5):
-    print(pvalue(
-        ttest(smallest_RJEW.iloc[i, 0], lWR_parameters.iloc[0, 5], math.sqrt(lWR_parameters.iloc[1, 5]), 1200)[0],
-        1199))
-
-for i in range(0, 5):
-    print(
-        pvalue(ttest(largest_RJEW.iloc[i, 0], lWR_parameters.iloc[0, 5], math.sqrt(lWR_parameters.iloc[1, 5]), 1200)[0],
-               1199))
-
-# LDR_parameters JPU test of normality of the boom and crashes
-# daily
-for i in range(0, 5):
-    print(pvalue(
-        ttest(smallest_JPUD.iloc[i, 0], lDR_parameters.iloc[0, 6], math.sqrt(lDR_parameters.iloc[1, 6]), 6000)[0],
-        5999))
-
-for i in range(0, 5):
-    print(
-        pvalue(ttest(largest_JPUD.iloc[i, 0], lDR_parameters.iloc[0, 6], math.sqrt(lDR_parameters.iloc[1, 6]), 6000)[0],
-               5999))
-
-# weekly
-for i in range(0, 5):
-    print(pvalue(
-        ttest(smallest_JPUW.iloc[i, 0], lWR_parameters.iloc[0, 6], math.sqrt(lWR_parameters.iloc[1, 6]), 1200)[0],
-        1199))
-
-for i in range(0, 5):
-    print(
-        pvalue(ttest(largest_JPUW.iloc[i, 0], lWR_parameters.iloc[0, 6], math.sqrt(lWR_parameters.iloc[1, 6]), 1200)[0],
-               1199))
 ########################################################################################################################
 
 
@@ -533,6 +536,247 @@ JB_test = pd.concat([DW, pd.DataFrame(JB_test)], axis=1)
 
 
 ########################################################################################################################
+
+
+import statsmodels.api as sm
+import matplotlib.pyplot as plt
+from statsmodels.stats.diagnostic import acorr_ljungbox
+
+#computing squared returns
+indices_log_day_ret_df2=indices_log_day_ret_df.pow(2)
+
+
+#test autocorellation for first indice
+acf_values_SP = sm.tsa.stattools.acf(indices_log_day_ret_df.iloc[:,0], nlags=10, fft=False)
+
+# Compute the confidence interval for each autocorrelation coefficient
+n = len(indices_log_day_ret_df.iloc[:,0])
+conf_int = 1.96*(np.sqrt(1/n))
+
+# Plot the autocorrelation function with confidence intervals
+plt.stem(acf_values_SP)
+plt.axhline(y=-conf_int,linestyle='--',color='r')
+plt.axhline(y=conf_int,linestyle='--',color='r')
+plt.xlabel('Lags')
+plt.ylabel('Autocorrelation')
+plt.title('Autocorrelation Function with 95% Confidence Intervals')
+plt.show()
+
+#ljung box test
+lb_test_SP = acorr_ljungbox(indices_log_day_ret_df.iloc[:,0] , lags = 10)
+
+#test autocorellation for first indice squared
+acf_values_SP2 = sm.tsa.stattools.acf(indices_log_day_ret_df2.iloc[:,0], nlags=10, fft=False)
+
+# Compute the confidence interval for each autocorrelation coefficient
+n = len(indices_log_day_ret_df.iloc[:,0])
+conf_int = 1.96*(np.sqrt(1/n))
+
+# Plot the autocorrelation function with confidence intervals
+plt.stem(acf_values_SP2)
+plt.axhline(y=-conf_int,linestyle='--',color='r')
+plt.axhline(y=conf_int,linestyle='--',color='r')
+plt.xlabel('Lags')
+plt.ylabel('Autocorrelation')
+plt.title('Autocorrelation Function with 95% Confidence Intervals')
+plt.show()
+
+lb_test_SP2 = acorr_ljungbox(indices_log_day_ret_df2.iloc[:,0] , lags = 10)
+
+
+#test autocorellation for second indice
+acf_values_MLG = sm.tsa.stattools.acf(indices_log_day_ret_df.iloc[:,1], nlags=10, fft=False)
+
+# Compute the confidence interval for each autocorrelation coefficient
+n = len(indices_log_day_ret_df.iloc[:,0])
+conf_int = 1.96*(np.sqrt(1/n))
+
+# Plot the autocorrelation function with confidence intervals
+plt.stem(acf_values_MLG)
+plt.axhline(y=-conf_int,linestyle='--',color='r')
+plt.axhline(y=conf_int,linestyle='--',color='r')
+plt.xlabel('Lags')
+plt.ylabel('Autocorrelation')
+plt.title('Autocorrelation Function with 95% Confidence Intervals')
+plt.show()
+
+#ljung box test
+lb_test_MLG = acorr_ljungbox(indices_log_day_ret_df.iloc[:,1] , lags = 10)
+
+#test autocorellation for second indice squared
+acf_values_MLG2 = sm.tsa.stattools.acf(indices_log_day_ret_df2.iloc[:,1], nlags=10, fft=False)
+
+# Compute the confidence interval for each autocorrelation coefficient
+n = len(indices_log_day_ret_df.iloc[:,0])
+conf_int = 1.96*(np.sqrt(1/n))
+
+# Plot the autocorrelation function with confidence intervals
+plt.stem(acf_values_MLG2)
+plt.axhline(y=-conf_int,linestyle='--',color='r')
+plt.axhline(y=conf_int,linestyle='--',color='r')
+plt.xlabel('Lags')
+plt.ylabel('Autocorrelation')
+plt.title('Autocorrelation Function with 95% Confidence Intervals')
+plt.show()
+
+lb_test_MLG2 = acorr_ljungbox(indices_log_day_ret_df2.iloc[:,1] , lags = 10)
+
+
+
+#test autocorellation for third indice
+acf_values_MLC = sm.tsa.stattools.acf(indices_log_day_ret_df.iloc[:,2], nlags=10, fft=False)
+
+# Compute the confidence interval for each autocorrelation coefficient
+n = len(indices_log_day_ret_df.iloc[:,0])
+conf_int = 1.96*(np.sqrt(1/n))
+
+# Plot the autocorrelation function with confidence intervals
+plt.stem(acf_values_MLC)
+plt.axhline(y=-conf_int,linestyle='--',color='r')
+plt.axhline(y=conf_int,linestyle='--',color='r')
+plt.xlabel('Lags')
+plt.ylabel('Autocorrelation')
+plt.title('Autocorrelation Function with 95% Confidence Intervals')
+plt.show()
+
+#ljung box test
+lb_test_MLC = acorr_ljungbox(indices_log_day_ret_df.iloc[:,2] , lags = 10)
+
+#test autocorellation for third indice squared
+acf_values_MLC2 = sm.tsa.stattools.acf(indices_log_day_ret_df2.iloc[:,2], nlags=10, fft=False)
+
+# Compute the confidence interval for each autocorrelation coefficient
+n = len(indices_log_day_ret_df.iloc[:,0])
+conf_int = 1.96*(np.sqrt(1/n))
+
+# Plot the autocorrelation function with confidence intervals
+plt.stem(acf_values_MLC2)
+plt.axhline(y=-conf_int,linestyle='--',color='r')
+plt.axhline(y=conf_int,linestyle='--',color='r')
+plt.xlabel('Lags')
+plt.ylabel('Autocorrelation')
+plt.title('Autocorrelation Function with 95% Confidence Intervals')
+plt.show()
+
+lb_test_MLC2 = acorr_ljungbox(indices_log_day_ret_df2.iloc[:,2] , lags = 10)
+
+
+
+#test autocorellation for fourth indice
+acf_values_WIL = sm.tsa.stattools.acf(indices_log_day_ret_df.iloc[:,3], nlags=10, fft=False)
+
+# Compute the confidence interval for each autocorrelation coefficient
+n = len(indices_log_day_ret_df.iloc[:,0])
+conf_int = 1.96*(np.sqrt(1/n))
+
+# Plot the autocorrelation function with confidence intervals
+plt.stem(acf_values_WIL)
+plt.axhline(y=-conf_int,linestyle='--',color='r')
+plt.axhline(y=conf_int,linestyle='--',color='r')
+plt.xlabel('Lags')
+plt.ylabel('Autocorrelation')
+plt.title('Autocorrelation Function with 95% Confidence Intervals')
+plt.show()
+
+#ljung box test
+lb_test_WIL = acorr_ljungbox(indices_log_day_ret_df.iloc[:,3] , lags = 10)
+
+#test autocorellation for fourth indice squared
+acf_values_WIL2 = sm.tsa.stattools.acf(indices_log_day_ret_df2.iloc[:,3], nlags=10, fft=False)
+
+# Compute the confidence interval for each autocorrelation coefficient
+n = len(indices_log_day_ret_df.iloc[:,0])
+conf_int = 1.96*(np.sqrt(1/n))
+
+# Plot the autocorrelation function with confidence intervals
+plt.stem(acf_values_WIL2)
+plt.axhline(y=-conf_int,linestyle='--',color='r')
+plt.axhline(y=conf_int,linestyle='--',color='r')
+plt.xlabel('Lags')
+plt.ylabel('Autocorrelation')
+plt.title('Autocorrelation Function with 95% Confidence Intervals')
+plt.show()
+
+lb_test_WIL2 = acorr_ljungbox(indices_log_day_ret_df2.iloc[:,3] , lags = 10)
+
+
+
+#test autocorellation for fifth indice
+acf_values_RJE = sm.tsa.stattools.acf(indices_log_day_ret_df.iloc[:,4], nlags=10, fft=False)
+
+# Compute the confidence interval for each autocorrelation coefficient
+n = len(indices_log_day_ret_df.iloc[:,0])
+conf_int = 1.96*(np.sqrt(1/n))
+
+# Plot the autocorrelation function with confidence intervals
+plt.stem(acf_values_RJE)
+plt.axhline(y=-conf_int,linestyle='--',color='r')
+plt.axhline(y=conf_int,linestyle='--',color='r')
+plt.xlabel('Lags')
+plt.ylabel('Autocorrelation')
+plt.title('Autocorrelation Function with 95% Confidence Intervals')
+plt.show()
+
+#ljung box test
+lb_test_RJE = acorr_ljungbox(indices_log_day_ret_df.iloc[:,4] , lags = 10)
+
+#test autocorellation for fifth indice squared
+acf_values_RJE2 = sm.tsa.stattools.acf(indices_log_day_ret_df2.iloc[:,4], nlags=10, fft=False)
+
+# Compute the confidence interval for each autocorrelation coefficient
+n = len(indices_log_day_ret_df.iloc[:,0])
+conf_int = 1.96*(np.sqrt(1/n))
+
+# Plot the autocorrelation function with confidence intervals
+plt.stem(acf_values_RJE2)
+plt.axhline(y=-conf_int,linestyle='--',color='r')
+plt.axhline(y=conf_int,linestyle='--',color='r')
+plt.xlabel('Lags')
+plt.ylabel('Autocorrelation')
+plt.title('Autocorrelation Function with 95% Confidence Intervals')
+plt.show()
+
+lb_test_RJE2 = acorr_ljungbox(indices_log_day_ret_df2.iloc[:,4] , lags = 10)
+
+
+#test autocorellation for sixth indice
+acf_values_JPU = sm.tsa.stattools.acf(indices_log_day_ret_df.iloc[:,5], nlags=10, fft=False)
+
+# Compute the confidence interval for each autocorrelation coefficient
+n = len(indices_log_day_ret_df.iloc[:,0])
+conf_int = 1.96*(np.sqrt(1/n))
+
+# Plot the autocorrelation function with confidence intervals
+plt.stem(acf_values_JPU)
+plt.axhline(y=-conf_int,linestyle='--',color='r')
+plt.axhline(y=conf_int,linestyle='--',color='r')
+plt.xlabel('Lags')
+plt.ylabel('Autocorrelation')
+plt.title('Autocorrelation Function with 95% Confidence Intervals')
+plt.show()
+
+#ljung box test
+lb_test_JPU = acorr_ljungbox(indices_log_day_ret_df.iloc[:,5] , lags = 10)
+
+#test autocorellation for sixth indice squared
+acf_values_JPU2 = sm.tsa.stattools.acf(indices_log_day_ret_df2.iloc[:,5], nlags=10, fft=False)
+
+# Compute the confidence interval for each autocorrelation coefficient
+n = len(indices_log_day_ret_df.iloc[:,0])
+conf_int = 1.96*(np.sqrt(1/n))
+
+# Plot the autocorrelation function with confidence intervals
+plt.stem(acf_values_JPU2)
+plt.axhline(y=-conf_int,linestyle='--',color='r')
+plt.axhline(y=conf_int,linestyle='--',color='r')
+plt.xlabel('Lags')
+plt.ylabel('Autocorrelation')
+plt.title('Autocorrelation Function with 95% Confidence Intervals')
+plt.show()
+
+lb_test_JPU2 = acorr_ljungbox(indices_log_day_ret_df2.iloc[:,5] , lags = 10)
+
+
 """
 3 - A/B : SUMMARY STATISTICS AND CORRELATIONS
 """
